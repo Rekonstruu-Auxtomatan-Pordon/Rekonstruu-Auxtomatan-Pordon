@@ -1,14 +1,11 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <iostream>
-#include <string.h>
-#include <chrono>
-#include <thread>
+#include "headers/headers.h"
 
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
+/*
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4,fma,abm,mmx,avx,avx2")
+*/
+#define rep(i, n) for(int i = 0; i < (int)(n); i++)
 
 const int CLIENTPORT=49500;
 const int SERVERPORT=49501;
@@ -18,36 +15,23 @@ int main()
 {
     while (1)
     {
+        int clientsock;
+        int serversock;
+        
         //ソケットアドレス構造体
-        struct sockaddr_in serveraddr;
-        struct sockaddr_in clientaddr;
         struct sockaddr_in from_addr;
+        
+        class_net client;
+        class_net server;
 
         int len = sizeof(from_addr);
 
         //受信バッファ
         char buf[SIZE] = {0};
         char state[SIZE] = {0}; //現在の状態
-
-        int serversock = socket(AF_INET, SOCK_DGRAM, 0);
-        int clientsock = socket(AF_INET, SOCK_DGRAM, 0);
-        // IPV4を利用する
-        serveraddr.sin_family = AF_INET;
-        //ポートを設定する
-        serveraddr.sin_port = htons(SERVERPORT);
-        //宛先IPアドレスの設定
-        serveraddr.sin_addr.s_addr = INADDR_ANY;
-
-        // IPV4を利用する
-        clientaddr.sin_family = AF_INET;
-        //ポートを設定する
-        clientaddr.sin_port = htons(CLIENTPORT);
-        //送信元IPアドレス
-        clientaddr.sin_addr.s_addr = INADDR_ANY;
-
-        if(bind(clientsock, (struct sockaddr *)&clientaddr, sizeof(clientaddr))==-1){
-            std::cerr<<"Bind失敗"<<std::endl;
-        }
+        
+        clientsock=client.create(CLIENTPORT);
+        serversock=server.create(SERVERPORT);
 
         //データーを受信して、バッファを格納する
         recvfrom(clientsock, buf, sizeof(buf), 0, (struct sockaddr *)&from_addr, (socklen_t *)&len);
@@ -57,16 +41,11 @@ int main()
             break;
         }
         //受信したデータを表示する
-        std::cout<<"受信したデータは"<<buf<<"IPアドレスは"<<std::endl<<inet_ntoa(from_addr.sin_addr)<<std::endl;
-        serveraddr.sin_addr.s_addr = from_addr.sin_addr.s_addr;
-        if(bind(serversock, (struct sockaddr *)&serveraddr, sizeof(serveraddr))==-1){
-            std::cerr<<"Bind失敗"<<std::endl;
-        }
-
+        std::cout<<"受信したデータは"<<buf<<std::endl<<"IPアドレスは"<<inet_ntoa(from_addr.sin_addr)<<std::endl;
+        server.socket_address.sin_addr.s_addr = from_addr.sin_addr.s_addr;
         strcpy(state, buf);
-        for (int i = 0; i < 10; i++)
-        {
-            sendto(serversock, state, sizeof(state), 0, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
+        rep(i,10){
+            sendto(serversock, state, sizeof(state), 0, (struct sockaddr *)&server.socket_address, sizeof(server.socket_address));
             std::chrono::milliseconds(500);
         }
         //ソケットを閉じる(呼出す必要!)*/
