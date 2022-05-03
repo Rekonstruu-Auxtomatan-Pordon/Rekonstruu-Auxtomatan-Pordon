@@ -1,4 +1,4 @@
-#include "../headers/headers.h"
+#include "class_net.h"
 
 int class_net::create(int PORT){
     int created_socket=socket(AF_INET, SOCK_DGRAM, 0);
