@@ -1,11 +1,5 @@
 #include "headers/stdafx.h"
-
-/*
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4,fma,abm,mmx,avx,avx2")
-*/
-#define rep(i, n) for(int i = 0; i < (int)(n); i++)
+#define rep(i, n) for(int i = 0; i < static_int<int>(n); i++)
 
 const int CLIENTPORT=49500;
 const int SERVERPORT=49501;
@@ -44,17 +38,17 @@ int main()
         // exitが入力されたときbreakする
         if (strcmp(state, "exit") == 0)
         {
-            sendto(serversock, state, sizeof(state), 0, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
+            sendto(serversock, state, sizeof(state), 0, reinterpret_cast<struct sockaddr *>(&serveraddr), sizeof(serveraddr));
             //時間待機しないと、ソケットが閉じられるため、その対策
             //!!状況に応じて時間を変更すること!!
             std::chrono::milliseconds(500);
             break;
         }
         // パケットをUDPで送信
-        sendto(serversock, state, sizeof(state), 0, (struct sockaddr *)&serveraddr, sizeof(serveraddr));
+        sendto(serversock, state, sizeof(state), 0, reinterpret_cast<struct sockaddr *>(&serveraddr), sizeof(serveraddr));
         for (int i = 0; i < 10; i++)
         {
-            recvfrom(clientsock, buf, sizeof(buf), 0, (struct sockaddr *)&from_addr, (socklen_t *)&len);
+            recvfrom(clientsock, buf, sizeof(buf), 0, reinterpret_cast<struct sockaddr *>(&from_addr), reinterpret_cast<socklen_t *>(&len));
             std::cout<<buf<<"中..."<<std::endl;
         }
         //ソケットを閉じる

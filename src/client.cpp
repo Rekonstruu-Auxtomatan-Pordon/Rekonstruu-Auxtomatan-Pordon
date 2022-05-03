@@ -1,11 +1,6 @@
 #include "headers/stdafx.h"
-
-/*
-#pragma GCC optimize("Ofast")
-#pragma GCC optimize("unroll-loops")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4,fma,abm,mmx,avx,avx2")
-*/
-#define rep(i, n) for(int i = 0; i < (int)(n); i++)
+//repマクロはfor文を簡略化する
+#define rep(i, n) for(int i = 0; i < static_cast<int>(n); i++)
 
 const int CLIENTPORT=49500;
 const int SERVERPORT=49501;
@@ -34,7 +29,7 @@ int main()
         serversock=server.create(SERVERPORT);
 
         //データーを受信して、バッファを格納する
-        recvfrom(clientsock, buf, sizeof(buf), 0, (struct sockaddr *)&from_addr, (socklen_t *)&len);
+        recvfrom(clientsock, buf, sizeof(buf), 0, reinterpret_cast<struct sockaddr *>(&from_addr), reinterpret_cast<socklen_t *>(&len));
         if (strcmp(buf, "exit") == 0)
         {
             close(clientsock);
@@ -45,7 +40,7 @@ int main()
         server.socket_address.sin_addr.s_addr = from_addr.sin_addr.s_addr;
         strcpy(state, buf);
         rep(i,10){
-            sendto(serversock, state, sizeof(state), 0, (struct sockaddr *)&server.socket_address, sizeof(server.socket_address));
+            sendto(serversock, state, sizeof(state), 0, reinterpret_cast<struct sockaddr *>(&server.socket_address), sizeof(server.socket_address));
             std::chrono::milliseconds(500);
         }
         //ソケットを閉じる(呼出す必要!)*/
