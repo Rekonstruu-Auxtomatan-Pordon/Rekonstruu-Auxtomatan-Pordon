@@ -4,7 +4,6 @@ MAKEFLAGS+= --no-builtin-rules
 CXX:=g++ #g++でビルドする
 
 DEBUG:= -g3 #デバッグ情報最大化
-
 CFLAGS:= -Wall #エラーを全部出す
 CFLAGS+= -Wextra #追加の警告オプション
 CFLAGS+= -Wcast-align #ポインタのキャスト
@@ -42,10 +41,10 @@ DIR=$(shell which "ccache")
 
 all:
 ifeq (${DIR},/usr/bin/ccache)
-	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
+	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) &
 	ccache $(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
 else
-	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
+	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) &
 	$(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
 endif
 TARGET1:
