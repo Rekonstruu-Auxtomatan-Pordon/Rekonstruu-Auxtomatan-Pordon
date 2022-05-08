@@ -1,5 +1,5 @@
 #pragma once
-#include "../headers/stdafx.h"
+#include "../headers/stdafx.hpp"
 
 class class_net{
     public:

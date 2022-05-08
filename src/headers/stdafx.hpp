@@ -10,4 +10,4 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 
-#include "../class/class_net.h"
+#include "../class/class_net.hpp"

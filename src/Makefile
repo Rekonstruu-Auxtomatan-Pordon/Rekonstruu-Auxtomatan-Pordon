@@ -1,5 +1,5 @@
 MAKEFLAGS=-j8
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS+= --no-builtin-rules
 .SUFFIXES:	#サフィックス無効
 CXX:=g++ #g++でビルドする
 
@@ -34,8 +34,7 @@ TARGET2= Client.elf #実行ファイルの名前
 SRCS1= server.cpp
 SRCS2= client.cpp
 
-HEADER_DIR=./headers/stdafx.h #ヘッダファイル
-PRECOMPILED_DIR=./headers/stdafx.h.gch #ヘッダファイル
+HEADER_DIR=./headers/stdafx.hpp #ヘッダファイル
 CLASS_DIR=./class/class_net.cpp #クラスファイル
 
 all_release:TARGET1 TARGET2
@@ -46,8 +45,8 @@ ifeq (${DIR},/usr/bin/ccache)
 	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
 	ccache $(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
 else
-	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS)  $(HEADER_DIR) $(CLASS_DIR) $(SRCS1)
-	$(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS)  $(HEADER_DIR) $(CLASS_DIR) $(SRCS2)
+	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
+	$(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
 endif
 TARGET1:
 	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)

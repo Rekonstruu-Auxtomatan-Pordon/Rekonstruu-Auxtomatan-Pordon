@@ -1,4 +1,4 @@
-#include "headers/stdafx.h"
+#include "headers/stdafx.hpp"
 #define rep(i, n) for(int i = 0; i < static_int<int>(n); i++)
 
 const int CLIENTPORT=49500;
