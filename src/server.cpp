@@ -1,12 +1,11 @@
 #include "headers/stdafx.hpp"
-#define rep(i, n) for(int i = 0; i < static_int<int>(n); i++)
 
-const int CLIENTPORT=49500;
-const int SERVERPORT=49501;
-const int SIZE =4096;
+const int CLIENTPORT=49500;	//クライアントポート
+const int SERVERPORT=49501;	//サーバーポート
+const int SIZE=4096;	//配列のサイズ
 
-const char* DESTIP="192.168.0.8";
-const char* SOURCEIP="127.0.0.1";
+const char* DESTIP="192.168.0.8";	//宛先
+const char* SOURCEIP="127.0.0.1";	//送信元
 
 int main()
 {

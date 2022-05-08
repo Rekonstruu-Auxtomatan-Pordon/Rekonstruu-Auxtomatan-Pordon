@@ -1,6 +1,4 @@
 #include "headers/stdafx.hpp"
-//repマクロはfor文を簡略化する
-#define rep(i, n) for(int i = 0; i < static_cast<int>(n); i++)
 
 const int CLIENTPORT=49500;
 const int SERVERPORT=49501;
