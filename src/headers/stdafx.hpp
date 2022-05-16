@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <pigpio.h>
 
 #include <arpa/inet.h>
 #include <netinet/in.h>

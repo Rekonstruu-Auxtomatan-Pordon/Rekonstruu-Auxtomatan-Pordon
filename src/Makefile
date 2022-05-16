@@ -28,26 +28,19 @@ RELEASE+= -fomit-frame-pointer #バイナリのサイズ減少
 RELEASE+= -march=native #このアーキテクチャのみのバイナリ生成
 RELEASE+= -pipe
 
-TARGET1= Server.elf #実行ファイルの名前
-TARGET2= Client.elf #実行ファイルの名前
-SRCS1= server.cpp
-SRCS2= client.cpp
+TARGET1= main.elf #実行ファイルの名前
+SRCS1= main.cpp
 
 HEADER_DIR=./headers/stdafx.hpp #ヘッダファイル
 CLASS_DIR=./class/class_net.cpp #クラスファイル
 
-all_release:TARGET1 TARGET2
+all_release:TARGET1
 DIR=$(shell which "ccache")
 
 all:
 ifeq (${DIR},/usr/bin/ccache)
-	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) &
-	ccache $(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
+	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
 else
-	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) &
-	$(CXX) -o $(TARGET2) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
-endif
+	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
 TARGET1:
 	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
-TARGET2:
-	$(CXX) -o $(TARGET2) $(CFLAGS) $(RELEASE)  -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS2)
