@@ -18,10 +18,13 @@ Rekonstruu Auxtomatan Pordon 通称「RAP」は開き戸を再構築して、自
 - ネットワーク環境
 
 ## 使い方
+
 1. src直下で
+
 ```shell
-$ make all
+make all
 ```
+
 を実行します。
 
 ## 開発メンバー
