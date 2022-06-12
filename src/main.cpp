@@ -1,7 +1,6 @@
 #include "headers/stdafx.hpp"
-
-const int FRONT_DOOR_SENSOR 11
-const int BACK_DOOR_SENSOR 13
+#define FRONT_DOOR_SENSOR 11
+#define BACK_DOOR_SENSOR 13
 
 //開ける動作
 void open_motor(){
@@ -9,33 +8,33 @@ void open_motor(){
 }
 //閉じる動作
 int close_motor(){
-	
+return 0;	
 }
 int main()
 {
 	// 初期化
 	if (gpioInitialise() < 0)
 	{
-		std::cerr << "pigpio初期化失敗!!: " << e.what() << std::endl;
+		std::cerr << "pigpio初期化失敗!!: " << std::endl;
 	}
 	// GPIOの入力設定	
 	if (gpioSetMode(FRONT_DOOR_SENSOR, PI_INPUT) != 0)
 	{
-		std::cerr << "フロントドアの設定失敗!!: " << e.what() << std::endl;
+		std::cerr << "フロントドアの設定失敗!!: "  << std::endl;
 	}
 	//プルアップする
 	if (gpioSetPullUpDown(FRONT_DOOR_SENSOR, PI_PUD_UP) != 0)
 	{
-		std::cerr << "フロントドアの設定失敗!!: " << e.what() << std::endl;
+		std::cerr << "フロントドアの設定失敗!!: "  << std::endl;
 	}
 	
 	if (gpioSetMode(BACK_DOOR_SENSOR, PI_INPUT) != 0)
 	{
-		std::cerr << "背面ドアの設定失敗!!: " << e.what() << std::endl;
+		std::cerr << "背面ドアの設定失敗!!: "  << std::endl;
 	}
 	if (gpioSetPullUpDown(BACK_DOOR_SENSOR, PI_PUD_UP) != 0)
 	{
-		std::cerr << "背面ドアの設定失敗!!: " << e.what() << std::endl;
+		std::cerr << "背面ドアの設定失敗!!: "  << std::endl;
 	}
 	
 	//メインループ

@@ -18,9 +18,8 @@ CFLAGS+= -Wold-style-cast #C風のキャストの防止
 CFLAGS+= -Wswitch-default #default文の矯正
 CFLAGS+= -Wunsafe-loop-optimizations #ループのオーバーフロー
 
-CFLAGS+= -std=c++23 #C++23でビルドする
+CFLAGS+= -std=c++20 #C++23でビルドする
 CFLAGS+= -pipe #パイプ処理でコンパイル
-
 RELEASE:= -O2	#最適化オプション
 RELEASE+= -fexcess-precision=fast #古いgccで計算
 RELEASE+= -ffast-math #誤差を全く無視
@@ -34,13 +33,9 @@ SRCS1= main.cpp
 HEADER_DIR=./headers/stdafx.hpp #ヘッダファイル
 CLASS_DIR=./class/class_net.cpp #クラスファイル
 
-all_release:TARGET1
+all:TARGET1
 DIR=$(shell which "ccache")
 
-all:
-ifeq (${DIR},/usr/bin/ccache)
-	ccache $(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
-else
-	$(CXX) -o $(TARGET1) $(DEBUG) $(CFLAGS) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
 TARGET1:
-	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1)
+	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) -lpigpio
+
