@@ -31,11 +31,11 @@ TARGET1= main.elf #実行ファイルの名前
 SRCS1= main.cpp
 
 HEADER_DIR=./headers/stdafx.hpp #ヘッダファイル
-CLASS_DIR=./class/class_net.cpp #クラスファイル
+#""CLASS_DIR=./class/gpio_control.cpp #クラスファイル
 
 all:TARGET1
 DIR=$(shell which "ccache")
 
 TARGET1:
-	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR) -include $(CLASS_DIR) $(SRCS1) -lpigpio
+	$(CXX) -o $(TARGET1) $(CFLAGS) $(RELEASE) -include $(HEADER_DIR)  $(SRCS1) -lpigpio
 

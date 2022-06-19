@@ -5,12 +5,7 @@
 #include <thread>
 #include <pigpio.h>
 
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-
-#include "../class/class_net.hpp"
+#include "../class/gpio_control.hpp"
 
 //repマクロはfor文を簡略化する
 #define rep(i, n) for(int i = 0; i < static_cast<int>(n); i++)

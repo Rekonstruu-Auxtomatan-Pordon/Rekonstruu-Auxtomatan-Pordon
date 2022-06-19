@@ -9,7 +9,6 @@ void open_motor()
 #ifdef DEBUG
 	std::cout << "モーター動作中" << std::endl;
 #endif
-	return 0;
 }
 //閉じる動作
 int close_motor()
